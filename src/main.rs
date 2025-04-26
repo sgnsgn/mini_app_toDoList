@@ -37,12 +37,12 @@ struct ToDoList {
   }
 
   fn display_tasks(&self) {
-    let mut list_index = 0;
-	for task in self.task_list.iter() {
-        println!("{}. [✗] {}", list_index, task.description);
-        list_index += 1;
-    }   
+    for (i, task) in self.task_list.iter().enumerate() {
+        let status = if task.is_done { "✔" } else { "✗" };
+        println!("{}. [{}] {}", i + 1, status, task.description);
+    }
 }
+
 }
 
 fn main() {
