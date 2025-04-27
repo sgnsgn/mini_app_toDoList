@@ -43,6 +43,13 @@ struct ToDoList {
     }
 }
 
+fn mark_done(&mut self, index: usize) {
+    match self.task_list.get_mut(index) {
+        Some(task) => task.is_done = true,
+        None => println!("Invalid task index: {}", index),
+    }
+}
+
 }
 
 fn main() {
@@ -52,4 +59,10 @@ fn main() {
 
     println!("Current tasks:");
     todo_list.display_tasks();
+
+    let task_index = 1;
+    todo_list.mark_done(task_index);
+
+    println!("\nUpdated tasks:");
+    todo_list.display_tasks();  
 }
