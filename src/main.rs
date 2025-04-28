@@ -68,26 +68,55 @@ fn delete_task(&mut self, index: usize) {
       println!("Deletion canceled.");
   }
 }
-
-
 }
 
-fn main() {
-    let mut todo_list = ToDoList::new();
-    todo_list.add_task("Learn Rust".to_string());
-    todo_list.add_task("Build a ToDo app".to_string());
+fn main () {
 
-    println!("Current tasks:");
-    todo_list.display_tasks();
+  let mut todo_list = ToDoList::new();
 
-    let task_index = 1;
-    todo_list.mark_done(task_index);
+  loop {
+println!("=== ToDo Handler ===
+1. Create
+2. Read
+3. Update
+4. Delete
+5. Quit
+Choose an option : ");
 
-    println!("\nUpdated tasks:");
-    todo_list.display_tasks(); 
-    todo_list.delete_task(task_index);
-    todo_list.delete_task(3);
-    println!("\nTasks after deletion:");
-    todo_list.display_tasks();
+let mut choice = String::new();
+io::stdin().read_line(&mut choice).expect("Failed to read line"); 
 
+match choice.trim().parse::<i32>() {
+    Ok(number) => match number {
+      1 => {
+          println!("Enter task description: ");
+          let mut description = String::new();
+          io::stdin().read_line(&mut description).expect("Failed to read line");
+          let description = description.trim().to_string();
+          todo_list.add_task(description);
+      }
+      2 => {
+          println!("Current tasks:");
+          todo_list.display_tasks();
+      }
+      3 => {
+          println!("Enter task index to mark as done: ");
+          let mut index = String::new();
+          io::stdin().read_line(&mut index).expect("Failed to read line");
+          let index: usize = index.trim().parse().expect("Invalid input");
+          todo_list.mark_done(index - 1);
+      }
+      4 => {
+          println!("Enter task index to delete: ");
+          let mut index = String::new();
+          io::stdin().read_line(&mut index).expect("Failed to read line");
+          let index: usize = index.trim().parse().expect("Invalid input");
+          todo_list.delete_task(index - 1);
+      }
+      5 => break,
+      _ => println!("Invalid choice, please try again."),
+  }
+    Err(_) => println!("Invalid input, please enter a number."),
+};
+  }
 }
