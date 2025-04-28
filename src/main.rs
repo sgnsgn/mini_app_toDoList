@@ -111,7 +111,7 @@ match choice.trim().parse::<i32>() {
           let mut index = String::new();
           io::stdin().read_line(&mut index).expect("Failed to read line");
           let index: usize = index.trim().parse().expect("Invalid input");
-          todo_list.delete_task(index - 1);
+          todo_list.delete_task(index);
       }
       5 => break,
       _ => println!("Invalid choice, please try again."),
