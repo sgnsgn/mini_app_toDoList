@@ -1,1 +1,1 @@
-Learning Rust
+**Second mini-project**
